@@ -20,7 +20,7 @@ import com.example.samples.MyCdi;
 public class HelloServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    @Inject @Named("myCdiImpl2")
+    @Inject @Named("myCdiImpl1")
     private MyCdi myCdi;
 
     /**
