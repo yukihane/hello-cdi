@@ -1,5 +1,8 @@
 package com.example.samples;
 
+import javax.inject.Named;
+
+@Named("myCdiImpl1")
 public class MyCdiImpl1 implements MyCdi {
 
     @Override

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +20,7 @@ import com.example.samples.MyCdi;
 public class HelloServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    @Inject
+    @Inject @Named("myCdiImpl2")
     private MyCdi myCdi;
 
     /**
