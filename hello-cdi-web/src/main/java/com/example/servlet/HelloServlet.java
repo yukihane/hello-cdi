@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.example.samples.MyCdi;
+import com.example.samples.jpa.EntityExecutor;
 
 /**
  * Servlet implementation class HelloServlet
@@ -20,8 +21,12 @@ import com.example.samples.MyCdi;
 public class HelloServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    @Inject @Named("myCdiImpl1")
+    @Inject
+    @Named("myCdiImpl1")
     private MyCdi myCdi;
+
+    @Inject
+    private EntityExecutor entityExecutor;
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -37,6 +42,9 @@ public class HelloServlet extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String hello = myCdi.hello();
+
+        entityExecutor.execute();
+
         try (PrintWriter writer = response.getWriter()) {
             writer.println("<h1>" + hello + "</h1>");
         }
