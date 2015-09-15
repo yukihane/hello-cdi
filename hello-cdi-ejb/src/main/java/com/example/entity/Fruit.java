@@ -51,4 +51,9 @@ public class Fruit {
             return false;
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Fruit [id=" + id + ", version=" + version + ", name=" + name + "]";
+    }
 }
