@@ -2,6 +2,8 @@ package com.example.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -11,8 +13,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.example.entity.Person;
 import com.example.samples.MyCdi;
 import com.example.samples.jpa.EntityExecutor;
+import com.example.samples.jpa.EntityGet;
+import com.example.samples.jpa.EntityPrinter;
+import com.example.samples.jpa.EntitySet;
 
 /**
  * Servlet implementation class HelloServlet
@@ -21,12 +27,23 @@ import com.example.samples.jpa.EntityExecutor;
 public class HelloServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
+    private static final Logger LOGGER = Logger.getLogger(HelloServlet.class.getName());
+
     @Inject
     @Named("myCdiImpl1")
     private MyCdi myCdi;
 
     @Inject
     private EntityExecutor entityExecutor;
+
+    @Inject
+    private EntityGet entityGet;
+
+    @Inject
+    private EntitySet entitySet;
+
+    @Inject
+    private EntityPrinter entityPrinter;
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -41,6 +58,9 @@ public class HelloServlet extends HttpServlet {
      *      response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        LOGGER.log(Level.SEVERE, "serve log");
+
         String hello = myCdi.hello();
 
         entityExecutor.execute();
