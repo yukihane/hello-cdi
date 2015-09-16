@@ -3,6 +3,7 @@ package com.example.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.enterprise.context.Conversation;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.example.conversation.ConversationData;
+import org.jboss.weld.context.ConversationContext;
+import org.jboss.weld.context.http.Http;
+
+import com.example.conversation.ConversationGetter;
 
 /**
  * Servlet implementation class Conversation2Servlet
@@ -20,14 +24,20 @@ public class Conversation2Servlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @Inject
-    private ConversationData data;
+    @Http
+    private ConversationContext conversationContext;
+
+    @Inject
+    private Conversation conversation;
+
+    @Inject
+    private ConversationGetter end;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
     public Conversation2Servlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -35,7 +45,6 @@ public class Conversation2Servlet extends HttpServlet {
      *      response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO Auto-generated method stub
     }
 
     /**
@@ -44,13 +53,20 @@ public class Conversation2Servlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
         IOException {
-        String cid = data.getCid();
+        conversationContext.invalidate();
+        conversationContext.deactivate();
+
+        String cid = request.getParameter("mycid");
+        conversationContext.activate(cid);
+
         System.out.println("CID: " + cid);
-        System.out.println("conv data: " + data.getSelectedName());
-        data.end();
+        String name = end.get();
+        System.out.println("conv data: " + name);
+
+        conversation.end();
 
         try (PrintWriter writer = response.getWriter()) {
-            writer.println("<h1>CID: " + cid + ", data: " + data.getSelectedName() + "</h1>");
+            writer.println("<h1>CID: " + cid + ", data: " + name + "</h1>");
         }
     }
 

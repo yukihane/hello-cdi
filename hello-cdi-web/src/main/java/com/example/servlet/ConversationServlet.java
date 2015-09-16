@@ -2,6 +2,7 @@ package com.example.servlet;
 
 import java.io.IOException;
 
+import javax.enterprise.context.Conversation;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.example.conversation.ConversationData;
+import org.jboss.weld.context.ConversationContext;
+import org.jboss.weld.context.http.Http;
+
+import com.example.conversation.ConversationSetter;
 
 /**
  * Servlet implementation class ConversationServlet
@@ -19,14 +23,20 @@ public class ConversationServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @Inject
-    private ConversationData data;
+    @Http
+    private ConversationContext conversationContext;
+
+    @Inject
+    private Conversation conversation;
+
+    @Inject
+    private ConversationSetter setter;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
     public ConversationServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -34,7 +44,6 @@ public class ConversationServlet extends HttpServlet {
      *      response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO Auto-generated method stub
         System.out.println("doGet called");
     }
 
@@ -45,15 +54,19 @@ public class ConversationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
         IOException {
 
+        String cid = conversation.getId();
+        System.out.println("begin, cid: " + cid);
+
+        conversation.begin();
+        cid = conversation.getId();
+        System.out.println("begin, cid: " + cid);
+
         String value = request.getParameter("animal");
         System.out.println("value: " + value);
 
-        System.out.println("CID: " + data.getCid());
-        data.begin();
-        String cid = data.getCid();
-        System.out.println("begin, cid: " + cid);
-        request.setAttribute("cid", data.getCid());
-        data.setSelectedName(value);
+        setter.setName(value);
+
+        request.setAttribute("mycid", cid);
         request.getRequestDispatcher("page2.jsp").forward(request, response);
     }
 

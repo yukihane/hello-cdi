@@ -9,7 +9,7 @@
 <body>
 <h1>page2</h1>
 <form method="POST" action="conversation2">
-<input type="hidden" name = "cid" value = "<%= request.getAttribute("cid") %>">
+<input type="hidden" name = "mycid" value = "<%= request.getAttribute("mycid") %>">
 <input type="submit">
 </form>
 </body>
