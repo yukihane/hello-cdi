@@ -7,9 +7,7 @@ import javax.annotation.PreDestroy;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 
-@Named
 @ConversationScoped
 public class ConversationData implements Serializable {
 
@@ -18,7 +16,8 @@ public class ConversationData implements Serializable {
     @Inject
     private Conversation conversation;
 
-    private String selectedName;
+    @Inject
+    private SelectedName selectedName;
 
     @PostConstruct
     public void init() {
@@ -31,11 +30,11 @@ public class ConversationData implements Serializable {
     }
 
     public String getSelectedName() {
-        return selectedName;
+        return selectedName.get();
     }
 
     public void setSelectedName(String name) {
-        this.selectedName = name;
+        this.selectedName.set(name);
     }
 
     public void begin() {

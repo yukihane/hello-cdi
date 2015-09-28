@@ -44,10 +44,10 @@ public class Conversation2Servlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
         IOException {
+        data.end();
         String cid = data.getCid();
         System.out.println("CID: " + cid);
         System.out.println("conv data: " + data.getSelectedName());
-        data.end();
 
         try (PrintWriter writer = response.getWriter()) {
             writer.println("<h1>CID: " + cid + ", data: " + data.getSelectedName() + "</h1>");
