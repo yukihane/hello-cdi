@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.example.entity.Person;
 import com.example.samples.MyCdi;
+import com.example.samples.intercept.MyBeanLocal;
 import com.example.samples.jpa.EntityExecutor;
 import com.example.samples.jpa.EntityGet;
 import com.example.samples.jpa.EntityPrinter;
@@ -45,6 +45,9 @@ public class HelloServlet extends HttpServlet {
     @Inject
     private EntityPrinter entityPrinter;
 
+    @Inject
+    private MyBeanLocal myBean;
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -60,6 +63,8 @@ public class HelloServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         LOGGER.log(Level.SEVERE, "serve log");
+
+        myBean.hello();
 
         String hello = myCdi.hello();
 
