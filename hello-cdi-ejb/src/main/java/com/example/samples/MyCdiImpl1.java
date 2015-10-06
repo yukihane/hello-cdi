@@ -1,5 +1,6 @@
 package com.example.samples;
 
+import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -8,6 +9,7 @@ import org.picketlink.Identity.AuthenticationResult;
 import org.picketlink.credential.DefaultLoginCredentials;
 
 @Named("myCdiImpl1")
+@Dependent
 public class MyCdiImpl1 implements MyCdi {
 
     @Inject
