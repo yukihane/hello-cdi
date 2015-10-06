@@ -2,8 +2,6 @@ package com.example.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -13,6 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+
+import com.example.logging.Log;
 import com.example.samples.MyCdi;
 import com.example.samples.intercept.MyBeanLocal;
 import com.example.samples.jpa.EntityExecutor;
@@ -27,7 +28,9 @@ import com.example.samples.jpa.EntitySet;
 public class HelloServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    private static final Logger LOGGER = Logger.getLogger(HelloServlet.class.getName());
+    @Inject
+    @Log
+    private Logger logger;
 
     @Inject
     @Named("myCdiImpl1")
@@ -62,7 +65,7 @@ public class HelloServlet extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        LOGGER.log(Level.SEVERE, "serve log");
+        logger.error("serve log");
 
         myBean.hello();
 
