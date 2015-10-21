@@ -52,6 +52,11 @@
             <artifactId>hello-cdi-ejb</artifactId>
             <type>ejb</type>
         </dependency>
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>hello-cdi-ejb-bridge</artifactId>
+            <type>ejb</type>
+        </dependency>
     </dependencies>
 
     <build>

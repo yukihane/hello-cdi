@@ -34,6 +34,7 @@
     </licenses>
     <modules>
         <module>hello-cdi-ejb</module>
+        <module>hello-cdi-ejb-bridge</module>
         <module>hello-cdi-web</module>
         <module>hello-cdi-ear</module>
     </modules>
@@ -80,7 +81,13 @@
                 <version>${project.version}</version>
                 <type>ejb</type>
             </dependency>
-            
+            <dependency>
+              <groupId>com.example</groupId>
+                <artifactId>hello-cdi-ejb-bridge</artifactId>
+                <version>${project.version}</version>
+                <type>ejb</type>
+            </dependency>
+
             <!-- Define the version of the WAR so that we don't need to repeat 
                 ourselves in every module -->
             <dependency>
