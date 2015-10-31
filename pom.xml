@@ -121,14 +121,6 @@
         <scope>import</scope>
       </dependency>
 
-      <!-- Dependency Management for PicketLink and Java EE 7.0. -->
-      <dependency>
-        <groupId>org.picketlink</groupId>
-        <artifactId>picketlink-javaee-7.0</artifactId>
-        <version>${version.picketlink.javaee.bom}</version>
-        <scope>import</scope>
-        <type>pom</type>
-      </dependency>
 
       <dependency>
         <groupId>org.slf4j</groupId>

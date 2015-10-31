@@ -109,10 +109,6 @@
         <!--
         PicketLink Uber Dependency. It provides all PicketLink dependencies from a single JAR. You still can define each module separately, if you want to.
          -->
-        <dependency>
-            <groupId>org.picketlink</groupId>
-            <artifactId>picketlink</artifactId>
-        </dependency>
 
       <dependency>
         <groupId>org.slf4j</groupId>
